@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <string.h>
 #include "tamagotchi.h"
 
 void life(struct Tamagotchi* tamagotchi){

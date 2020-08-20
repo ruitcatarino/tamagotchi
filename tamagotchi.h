@@ -1,6 +1,9 @@
 #ifndef TAMAGOTCHI_TAMAGOTCHI_H
 #define TAMAGOTCHI_TAMAGOTCHI_H
 
+#include <stdio.h>
+#include <string.h>
+
 struct Tamagotchi{
 
     char name[50];
