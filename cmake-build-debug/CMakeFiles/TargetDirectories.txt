@@ -1,3 +1,0 @@
-C:/Users/Rui/Documents/Projetos/tamagotchi/cmake-build-debug/CMakeFiles/tamagotchi.dir
-C:/Users/Rui/Documents/Projetos/tamagotchi/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Rui/Documents/Projetos/tamagotchi/cmake-build-debug/CMakeFiles/rebuild_cache.dir
