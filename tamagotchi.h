@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 
 struct Tamagotchi{
 
@@ -12,6 +13,9 @@ struct Tamagotchi{
     int hungry;
     int mood;
     int bathroom;
+    int life;
+    bool alive;
+
 };
 
 void tamagotchi_sad(){
@@ -35,10 +39,33 @@ void tamagotchi_happy(){
 }
 
 void tamagotchi_status(struct Tamagotchi* tamagotchi){
-    printf("I am %d years old\n",tamagotchi->age);
-    printf("I am not hungry :) (%d%%)\n",tamagotchi->hungry);
-    printf("I don't have to take a bath :) (%d%%)\n",tamagotchi->bathroom);
-    printf("I am happy :) (%d%%)\n",tamagotchi->mood);
+    printf("My name is %s, and I'm %d years old! (%d HP)\n",tamagotchi->name,tamagotchi->age,tamagotchi->life);
+
+    if (tamagotchi->hungry > 50){
+        printf("I am not hungry :) (%d%%)\n",tamagotchi->hungry);
+    } else if (tamagotchi->hungry > 25){
+        printf("I am hungry (%d%%)\n",tamagotchi->hungry);
+    } else{
+        printf("I am starving :( (%d%%)\n",tamagotchi->hungry);
+    }
+
+    if (tamagotchi->bathroom > 50){
+        printf("I don't have to take a bath :) (%d%%)\n",tamagotchi->bathroom);
+    } else if (tamagotchi->bathroom > 25){
+        printf("I am a bit dirty (%d%%)\n",tamagotchi->bathroom);
+    } else{
+        printf("I really need to take a bath :( (%d%%)\n",tamagotchi->bathroom);
+    }
+
+    if (tamagotchi->mood > 50){
+        printf("I am happy :) (%d%%)\n",tamagotchi->mood);
+    } else if (tamagotchi->mood > 25){
+        printf("I am a okay (%d%%)\n",tamagotchi->mood);
+    } else{
+        tamagotchi_sad();
+        printf("I am sad :( (%d%%)\n",tamagotchi->mood);
+    }
+
     printf("You have $%d",tamagotchi->money);
 }
 
@@ -58,19 +85,6 @@ void tamagotchi_name(struct Tamagotchi* tamagotchi){
     strcpy(tamagotchi->name,name_var);
 
     tamagotchi_happy();
-
-    printf("My name is %s!\n",tamagotchi->name);
-}
-
-void create(struct Tamagotchi* tamagotchi){
-
-    tamagotchi_name(tamagotchi);
-
-    tamagotchi->age=0;
-    tamagotchi->bathroom=100;
-    tamagotchi->hungry=100;
-    tamagotchi->money=100;
-    tamagotchi->mood=100;
 }
 
 #endif //TAMAGOTCHI_TAMAGOTCHI_H
