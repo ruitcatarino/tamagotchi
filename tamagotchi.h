@@ -9,11 +9,9 @@ struct Tamagotchi{
 
     char name[50];
     int age;
-    int money;
     int hungry;
-    int mood;
     int bathroom;
-    int life;
+    int happiness;
     bool alive;
 
 };
@@ -39,7 +37,7 @@ void tamagotchi_happy(){
 }
 
 void tamagotchi_status(struct Tamagotchi* tamagotchi){
-    printf("My name is %s, and I'm %d years old! (%d HP)\n",tamagotchi->name,tamagotchi->age,tamagotchi->life);
+    printf("My name is %s, and I'm %d years old!\n",tamagotchi->name,tamagotchi->age);
 
     if (tamagotchi->hungry > 50){
         printf("I am not hungry :) (%d%%)\n",tamagotchi->hungry);
@@ -57,16 +55,14 @@ void tamagotchi_status(struct Tamagotchi* tamagotchi){
         printf("I really need to take a bath :( (%d%%)\n",tamagotchi->bathroom);
     }
 
-    if (tamagotchi->mood > 50){
-        printf("I am happy :) (%d%%)\n",tamagotchi->mood);
-    } else if (tamagotchi->mood > 25){
-        printf("I am a okay (%d%%)\n",tamagotchi->mood);
+    if (tamagotchi->happiness > 50){
+        printf("I am happy :) (%d%%)\n",tamagotchi->happiness);
+    } else if (tamagotchi->happiness > 25){
+        printf("I am a okay (%d%%)\n",tamagotchi->happiness);
     } else{
         tamagotchi_sad();
-        printf("I am sad :( (%d%%)\n",tamagotchi->mood);
+        printf("I am sad :( (%d%%)\n",tamagotchi->happiness);
     }
-
-    printf("You have $%d",tamagotchi->money);
 }
 
 void tamagotchi_name(struct Tamagotchi* tamagotchi){
