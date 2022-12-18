@@ -4,13 +4,14 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
 
 struct Tamagotchi{
 
     char name[50];
     int age;
-    int hungry;
-    int bathroom;
+    int hunger;
     int happiness;
     bool alive;
 
@@ -37,22 +38,20 @@ void tamagotchi_happy(){
 }
 
 void tamagotchi_status(struct Tamagotchi* tamagotchi){
+
+    if(tamagotchi->hunger > 60 || tamagotchi->happiness <= 25){
+        tamagotchi_sad();
+    }else {
+        tamagotchi_happy();
+    }
     printf("My name is %s, and I'm %d years old!\n",tamagotchi->name,tamagotchi->age);
 
-    if (tamagotchi->hungry > 50){
-        printf("I am not hungry :) (%d%%)\n",tamagotchi->hungry);
-    } else if (tamagotchi->hungry > 25){
-        printf("I am hungry (%d%%)\n",tamagotchi->hungry);
+    if (tamagotchi->hunger > 60){
+        printf("I am starving :( (%d%%)\n",tamagotchi->hunger);
+    } else if (tamagotchi->hunger > 25){
+        printf("I am hungry (%d%%)\n",tamagotchi->hunger);
     } else{
-        printf("I am starving :( (%d%%)\n",tamagotchi->hungry);
-    }
-
-    if (tamagotchi->bathroom > 50){
-        printf("I don't have to take a bath :) (%d%%)\n",tamagotchi->bathroom);
-    } else if (tamagotchi->bathroom > 25){
-        printf("I am a bit dirty (%d%%)\n",tamagotchi->bathroom);
-    } else{
-        printf("I really need to take a bath :( (%d%%)\n",tamagotchi->bathroom);
+        printf("I am not hungry :) (%d%%)\n",tamagotchi->hunger);
     }
 
     if (tamagotchi->happiness > 50){
@@ -60,7 +59,6 @@ void tamagotchi_status(struct Tamagotchi* tamagotchi){
     } else if (tamagotchi->happiness > 25){
         printf("I am a okay (%d%%)\n",tamagotchi->happiness);
     } else{
-        tamagotchi_sad();
         printf("I am sad :( (%d%%)\n",tamagotchi->happiness);
     }
 }
@@ -79,8 +77,23 @@ void tamagotchi_name(struct Tamagotchi* tamagotchi){
     }
 
     strcpy(tamagotchi->name,name_var);
+}
 
-    tamagotchi_happy();
+void feed(struct Tamagotchi *t) {
+  if (t->hunger < 5) {
+    t->hunger=8;
+  } else{
+    t->hunger-=5;
+  }
+    
+}
+
+void play(struct Tamagotchi *t) {
+  if (t->happiness > 96) {
+    t->happiness=103;
+  } else{
+    t->happiness+=5;
+  }
 }
 
 #endif //TAMAGOTCHI_TAMAGOTCHI_H
