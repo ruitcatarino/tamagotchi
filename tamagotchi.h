@@ -11,6 +11,7 @@ struct Tamagotchi{
 
     char name[50];
     int age;
+    int age_of_death;
     int hunger;
     int happiness;
     bool alive;
@@ -37,7 +38,23 @@ void tamagotchi_happy(){
            "   V   V\n");
 }
 
-void tamagotchi_status(struct Tamagotchi* tamagotchi){
+void clearScreen(){
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
+void print_menu(){
+    printf("What would you like to do?\n");
+    printf("1. Feed\n");
+    printf("2. Play\n");
+    printf("3. Quit\n");
+    printf("(Any onther number) Do nothing\n");
+}
+
+void tamagotchi_status_and_menu(struct Tamagotchi* tamagotchi){
 
     if(tamagotchi->hunger > 60 || tamagotchi->happiness <= 25){
         tamagotchi_sad();
@@ -47,20 +64,22 @@ void tamagotchi_status(struct Tamagotchi* tamagotchi){
     printf("My name is %s, and I'm %d years old!\n",tamagotchi->name,tamagotchi->age);
 
     if (tamagotchi->hunger > 60){
-        printf("I am starving :( (%d%%)\n",tamagotchi->hunger);
+        printf("Hunger: (%d%%)\n\tI am starving :( \n",tamagotchi->hunger);
     } else if (tamagotchi->hunger > 25){
-        printf("I am hungry (%d%%)\n",tamagotchi->hunger);
+        printf("Hunger: (%d%%)\n\tI am hungry \n",tamagotchi->hunger);
     } else{
-        printf("I am not hungry :) (%d%%)\n",tamagotchi->hunger);
+        printf("Hunger: (%d%%)\n\tI am not hungry :)\n",tamagotchi->hunger);
     }
 
     if (tamagotchi->happiness > 50){
-        printf("I am happy :) (%d%%)\n",tamagotchi->happiness);
+        printf("Happiness: (%d%%)\n\tI am happy :) \n",tamagotchi->happiness);
     } else if (tamagotchi->happiness > 25){
-        printf("I am a okay (%d%%)\n",tamagotchi->happiness);
+        printf("Happiness: (%d%%)\n\tI am a okay \n",tamagotchi->happiness);
     } else{
-        printf("I am sad :( (%d%%)\n",tamagotchi->happiness);
+        printf("Happiness: (%d%%)\n\tI am sad :( \n",tamagotchi->happiness);
     }
+
+    print_menu();
 }
 
 void tamagotchi_name(struct Tamagotchi* tamagotchi){
@@ -79,21 +98,41 @@ void tamagotchi_name(struct Tamagotchi* tamagotchi){
     strcpy(tamagotchi->name,name_var);
 }
 
-void feed(struct Tamagotchi *t) {
-  if (t->hunger < 5) {
-    t->hunger=8;
+void feed(struct Tamagotchi *tamagotchi){
+  if (tamagotchi->hunger < 5){
+    tamagotchi->hunger=0;
   } else{
-    t->hunger-=5;
+    tamagotchi->hunger-=5;
   }
     
 }
 
-void play(struct Tamagotchi *t) {
-  if (t->happiness > 96) {
-    t->happiness=103;
+void play(struct Tamagotchi *tamagotchi){
+  if (tamagotchi->happiness > 96){
+    tamagotchi->happiness=100;
   } else{
-    t->happiness+=5;
+    tamagotchi->happiness+=5;
   }
+}
+
+void check_status(struct Tamagotchi *tamagotchi){
+    clearScreen();
+    
+    if (tamagotchi->happiness <= 0){
+        tamagotchi_sad();
+        printf("I died from being unhappy!\n");
+        tamagotchi->alive = false;
+    } else if (tamagotchi->hunger >= 100){
+        tamagotchi_sad();
+        printf("I died from being too hungry!\n");
+        tamagotchi->alive = false;
+    } else if (tamagotchi->age >= tamagotchi->age_of_death){
+        tamagotchi_sad();
+        printf("I died from old age!\n");
+        tamagotchi->alive = false;
+    } else {
+        tamagotchi_status_and_menu(tamagotchi);
+    }
 }
 
 #endif //TAMAGOTCHI_TAMAGOTCHI_H
